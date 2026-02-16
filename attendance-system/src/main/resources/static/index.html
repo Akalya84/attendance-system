@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Attendance System</title>
+    <style>
+        body{
+            font-family: Arial;
+            text-align:center;
+            background:#f5f5f5;
+        }
+        h1{color:#333;}
+        button{
+            padding:15px 25px;
+            margin:10px;
+            font-size:16px;
+            cursor:pointer;
+            background:#007bff;
+            color:white;
+            border:none;
+            border-radius:5px;
+        }
+        button:hover{background:#0056b3;}
+        #output{
+            margin-top:20px;
+            font-size:18px;
+            color:green;
+        }
+    </style>
+</head>
+<body>
+
+<h1>🔥 Employee Attendance System</h1>
+
+<button onclick="checkIn()">Check In</button>
+<button onclick="checkOut()">Check Out</button>
+<button onclick="myReport()">My Report</button>
+<button onclick="dashboard()">Dashboard</button>
+
+<div id="output"></div>
+
+<script>
+const userId = 1; // your user id
+
+function checkIn(){
+fetch(`http://localhost:8080/api/attendance/checkin?userId=${userId}`,{method:"POST"})
+.then(res=>res.text())
+.then(data=>document.getElementById("output").innerText=data);
+}
+
+function checkOut(){
+fetch(`http://localhost:8080/api/attendance/checkout?userId=${userId}`,{method:"POST"})
+.then(res=>res.text())
+.then(data=>document.getElementById("output").innerText=data);
+}
+
+function myReport(){
+fetch(`http://localhost:8080/api/attendance/report/${userId}`)
+.then(res=>res.text())
+.then(data=>document.getElementById("output").innerText=data);
+}
+
+function dashboard(){
+fetch(`http://localhost:8080/api/attendance/dashboard`)
+.then(res=>res.text())
+.then(data=>document.getElementById("output").innerText=data);
+}
+</script>
+
+</body>
+</html>
